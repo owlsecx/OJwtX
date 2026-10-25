@@ -18,22 +18,18 @@
 
 ## 📌 Overview
 
-JWT / JWS / JWE security auditor & lab forge helpers
+OJwtX is a JWT / JWS / JWE security auditor that decodes tokens, audits claims and algorithms, compares tokens, and optionally verifies or forges HS* tokens with a supplied secret. It uses the Python standard library only (no PyJWT) and supports batch scanning, JWKS listing, and TXT/JSON/CSV export.
 
 ---
 
 ## ✨ Features
 
-- Decode JWT header/payload/signature without verify; pretty-print claims; detect alg, kid, typ, cty
-- Security auditor — alg:none, HS/RS confusion guidance, weak HMAC dictionary (~200 secrets) offline test, exp/nbf/iat skew, missing exp, oversized tokens, sensitive claims, kid path traversal / JWKS URL hints
-- Claims analyzer — iss/aud/sub/exp checklist + custom claim rules from ~/OJwtX/config.json
-- Compare two JWTs (header + claim-level diff)
-- Lab-only forge helpers — rebuild HS* tokens with a user-supplied secret/key file (ethical-use banner)
-- JWKS fetch (urllib + timeout) and offline JWKS file
-- Batch scan (one token per line) + Bearer extraction from HTTP logs / HAR-like text
-- Export TXT / JSON / CSV; save chooser ~/OJwtX; clipboard
-- Full CLI (--decode, --audit, --batch, --secret, --jwks)
-- Interactive menu + settings persistence
+- Decode JWT header/payload/signature without verification; detect `alg`, `kid`, `typ`, and `cty`
+- Security audit for `alg:none`, HS/RS confusion guidance, weak HMAC dictionary test, exp/nbf/iat skew, sensitive claims, and `kid` path hints
+- Claims analyzer with iss/aud/sub/exp checklist and optional custom rules from config
+- Compare two JWTs at header and claim level; batch audit from a file or Bearer extraction from logs
+- JWKS fetch or offline JWKS file listing; HS* verify/forge helpers with user-supplied secret
+- Export TXT / JSON / CSV; interactive menu and full CLI
 
 ---
 
@@ -47,7 +43,10 @@ JWT / JWS / JWE security auditor & lab forge helpers
 ## 🚀 Usage
 
 ```bash
-./OJwtX
+./OJwtX --decode eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.sig
+./OJwtX --audit TOKEN --expect-iss https://idp.example --json
+./OJwtX --batch tokens.txt -o audit.csv --format csv
+./OJwtX --help
 ```
 
 ---
